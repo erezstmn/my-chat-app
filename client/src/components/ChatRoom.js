@@ -1,39 +1,33 @@
 import React, {Component} from 'react';
 import uniqueid from 'lodash.uniqueid';
-export default class ChatRoom extends Component{
+
+class ChatRoom extends Component{
     constructor(props){
-        super(props);
-        this.state = {
-            userName:'',
+        super(props);       
+        this.state ={
             messages:[]
         }
-    }
-    handleEnterUserName(e){
-        console.log(e);
-    }
-    componentDidMount(){       
-        this.props.socket.on('message',(data) =>{                
-            this.setState((prevState, props) =>{
-                let messages = prevState.messages.map((message) => message);
+        this.props.socket.on('news',  (data) => {
+            this.setState((prevState)=>{
+                let messages = prevState.messages;
                 messages.push(data);
                 return{
                     messages
                 }
             })
-        });     
-    }
+        })        
+    }  
+   
     render(){
         return(
             <div>
-                <h1>Chat Room</h1>                
-                {this.state.messages.map((message) => {
-                    return(
-                        <p key={uniqueid()}>{message.sender + ': ' + message.body}</p>
-                    );
-                })}
-                <input id="text" type="text"/>
-                <button onClick={this.props.handleSendMessage}>Send Message</button>
+                <h1>{this.props.currentRoom || 'please select your room'}</h1>
+                <div>
+                    {this.state.messages.map((message) =>{
+                        return <p key={uniqueid()}>{Object.keys(message) + 'says: ' + message.Admin}</p>
+                    })}    
+                </div>
             </div>
-        )
-    }
+        )    }
 }
+export default ChatRoom;
