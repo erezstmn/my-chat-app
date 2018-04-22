@@ -3,8 +3,9 @@ import React from 'react';
 
 const Login = (props) =>{
     return (
-        <div>            
-                user name: <br/>
+        <div>   
+                {!props.userName?'Please Choose a user Name':`${props.userName} welcome to the chat app`}         
+                <br/>
                 <input type="text" id="userName" placeholder="username" /> <br/>
                 Create new chat room or choose from the list: <br/>
                 <input type="text" id="roomFromInput" placeholder="New Chat room" /> <br/>                

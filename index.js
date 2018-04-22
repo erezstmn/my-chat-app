@@ -14,7 +14,11 @@ const server = http.createServer(app);
 const io = socketIo(server);
 let soc;
 io.on('connection',  (socket) => {
-    soc = socket;     
+    soc = socket;
+    socket.on('message', (data) =>{
+        console.log(data);
+        io.to(data.room).emit('news',{user:data.sender,message:data.message})
+    })     
 });
 
 app.post('/login',  (req, res) => {

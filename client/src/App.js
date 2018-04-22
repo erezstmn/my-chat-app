@@ -20,7 +20,7 @@ class App extends Component {
   }
   handleSendMessage(e){ 
     let val = document.getElementById('text').value;
-      socket.emit('my other event',{message:val, sender:this.state.userName});
+      socket.emit('message',{message:val, sender:this.state.userName, room:this.state.currentRoom});
     }
   handleSubmitLogin(e){
     let user = document.getElementById('userName').value;
@@ -56,6 +56,8 @@ class App extends Component {
         <Login 
           handleSubmitLogin={this.handleSubmitLogin} 
           chatRooms={this.state.chatRooms}
+          userName={this.state.userName}
+          currentRoom={this.state.currentRoom}
           />
         <ChatRoom 
           messages={this.state.messages}
