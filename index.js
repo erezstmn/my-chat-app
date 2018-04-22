@@ -15,8 +15,7 @@ const io = socketIo(server);
 let soc;
 io.on('connection',  (socket) => {
     soc = socket;
-    socket.on('message', (data) =>{
-        console.log(data);
+    socket.on('message', (data) =>{        
         io.to(data.room).emit('news',{user:data.sender,message:data.message})
     })     
 });
@@ -24,10 +23,14 @@ io.on('connection',  (socket) => {
 app.post('/login',  (req, res) => {
     let room = req.body.room;
     let user = req.body.user;
-    soc.join(room, () =>{
-    io.to(room).emit('news',{Admin:`Hello ${user} Welcome to ${room}`});    
-    res.send('ok');
+    soc.join(room, () =>{           
+        res.send('ok');
 })})
+app.post('/logout', (req, res) => {    
+    let room = req.body.room;    
+    soc.leave(room, () =>{  });
+        res.send('left room');
+})
 
 app.get('/',(req, res) => {
     res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));

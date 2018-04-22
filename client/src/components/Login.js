@@ -1,17 +1,37 @@
-import React from 'react';
+import React, {Component} from 'react';
+import '../App.css';
 // import uniqueid from 'lodash.uniqueid';  
 
-const Login = (props) =>{
+class Login extends Component{
+    constructor(props){
+        super(props);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
+    }
+    
+    componentWillMount(){
+        document.addEventListener("keypress", this.handleKeyPress);
+      }
+    componentWillUnmount() {
+        document.removeEventListener("keypress", this.handleKeyPress);
+    }
+    handleKeyPress(e){       
+        if (e.key ==='Enter'){
+            this.props.handleSubmitLogin();
+        }
+    }
+    render(){
     return (
-        <div>   
-                {!props.userName?'Please Choose a user Name':`${props.userName} welcome to the chat app`}         
+        <div 
+        hidden={this.props.isHidden}
+        className="login-form"    
+        >
+            <h1>Login Form</h1>                      
                 <br/>
-                <input type="text" id="userName" placeholder="username" /> <br/>
-                Create new chat room or choose from the list: <br/>
+                <input type="text" id="userName" placeholder="username" autoFocus/> <br/>                
                 <input type="text" id="roomFromInput" placeholder="New Chat room" /> <br/>                
-                <button onClick={props.handleSubmitLogin}>submit</button>
+                <button onClick={this.props.handleSubmitLogin}>submit</button>
         </div>
-    );
+    );}
 };
 
 export default Login;
