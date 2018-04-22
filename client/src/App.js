@@ -61,10 +61,11 @@ class App extends Component {
     let room = this.state.currentRoom;    
     axios.post('/logout', {room}).then((res) => {      
       this.setState(() =>{
+        const newMessages=[];
         return{
         userName:'',      
         currentRoom:'',
-        messages:[],
+        messages:newMessages,
         isChatRoomHidden:true,
         isLoginFormHidden:false 
         }

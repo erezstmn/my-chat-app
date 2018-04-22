@@ -5,7 +5,6 @@ import '../App.css';
 class ChatRoom extends Component{
     constructor(props){
         super(props); 
-        this.handleKeyPress = this.handleKeyPress.bind(this);
         this.state ={
             messages:[],
             isHidden:props.isHidden
@@ -19,23 +18,12 @@ class ChatRoom extends Component{
                 }
             })
         })        
-    }
-    componentWillMount(){
-        document.addEventListener("keypress", this.handleKeyPress);
-      }
-    componentWillUnmount() {
-        document.removeEventListener("keypress", this.handleKeyPress);
-    }
-    handleKeyPress(e){       
-        if (e.key ==='Enter'){
-            this.props.handleSendMessage();
-        }
-    }    
-    componentWillReceiveProps(nextProps){    
-        
+    }      
+    componentWillReceiveProps(nextProps){        
         this.setState(() =>{
             return {
-                isHidden:nextProps.isHidden             
+                isHidden:nextProps.isHidden,
+                messages:[]                  
             }
         })
     }       

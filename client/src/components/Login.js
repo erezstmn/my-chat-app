@@ -2,23 +2,7 @@ import React, {Component} from 'react';
 import '../App.css';
 // import uniqueid from 'lodash.uniqueid';  
 
-class Login extends Component{
-    constructor(props){
-        super(props);
-        this.handleKeyPress = this.handleKeyPress.bind(this);
-    }
-    
-    componentWillMount(){
-        document.addEventListener("keypress", this.handleKeyPress);
-      }
-    componentWillUnmount() {
-        document.removeEventListener("keypress", this.handleKeyPress);
-    }
-    handleKeyPress(e){       
-        if (e.key ==='Enter'){
-            this.props.handleSubmitLogin();
-        }
-    }
+class Login extends Component{   
     render(){
     return (
         <div 
